@@ -4,17 +4,10 @@ const theatersRouter = require("../theaters/theaters.router");
 const reviewsRouter = require("../reviews/reviews.router");
 const methodNotAllowed = require("../errors/methodNotAllowed");
 
-router.use("/:movieId/theaters", controller.validateMovieId, theatersRouter);
 router.use("/:movieId/reviews", controller.validateMovieId, reviewsRouter);
+router.use("/:movieId/theaters", controller.validateMovieId, theatersRouter);
 
-router
-	.route("/")
-	.get(controller.list)
-	.all(methodNotAllowed);
+router.route("/").get(controller.list).all(methodNotAllowed);
+router.route("/:movieId").get(controller.read).all(methodNotAllowed);
 
-router
-	.route("/:movieId")
-	.get(controller.read)
-	.all(methodNotAllowed);
-
-module.exports = router; 
+module.exports = router;
